@@ -22,14 +22,26 @@ exports.create = (req, res) => {
       imgName: "empty"
 	}).then(task => {		
 		res.send(task);
-	});
+	}).catch(err => {
+        res.status(500).send({
+            success: false,
+            message: err.message || "Some error occurred while creating Task."
+        });
+    });
 };
  
 // FETCH all tasks
 exports.findAll = (req, res) => {
-	Task.findAll().then(tasks => {
+    Task.findAll()
+    .then(tasks => {
 	  res.send(tasks);
-	});
+    })
+    .catch(err => {
+        res.status(500).send({
+            success: false,
+            message: err.message || "Some error occurred while retrieving Tasks."
+        });
+    });
 };
 
 // Find a task by Name
