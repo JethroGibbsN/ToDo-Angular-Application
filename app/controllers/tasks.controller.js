@@ -1,4 +1,4 @@
-const db = require('../config/db.config.js');
+const db = require('../db/db.js');
 const Task = db.tasks;
 
 // Post a Task
@@ -22,7 +22,7 @@ exports.findAll = (req, res) => {
 
 // Find a task by Name
 exports.findByName = (req, res) => {	
-	Task.find({where:{taskName: req.params.taskName}}).then(task => {
+	Task.findByPk(req.params.taskName).then(task => {
 		res.send(task);
 	})
 };
