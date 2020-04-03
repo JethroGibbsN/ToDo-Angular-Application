@@ -25,7 +25,7 @@ exports.create = (req, res) => {
       imgName: req.file.originalname,
       imgData: imageData
 	}).then(task => {
-        console.log(task.imgData)
+        console.log(task)
         res.send(task);
         try{
             fs.writeFileSync(__dirname + '/../Public/responses/target.jpg', task.imgData);      
