@@ -19,7 +19,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 //Models/tables
-db.customers = require('../models/tasks.model.js')(sequelize, Sequelize);
+db.tasks = require('../models/tasks.model.js')(sequelize, Sequelize);
 
 
 module.exports = db;
