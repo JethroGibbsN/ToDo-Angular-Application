@@ -1,8 +1,10 @@
+const fs = require('fs');
 const db = require('../db/db.js');
 const Task = db.tasks;
 
 // Post a Task
 exports.create = (req, res) => {	
+    console.log(req.file)
     if (!req.body.taskName){
         return res.status(400).send({
             success: false,
@@ -15,13 +17,20 @@ exports.create = (req, res) => {
             message: "Task Description can not be empty"
         });
     }
+    var imageData = fs.readFileSync(__dirname + '/../Public/images/' + req.file.originalname);
 	// Save to MySQL database
 	Task.create({  
 	  taskName: req.body.taskName,
 	  taskDesc: req.body.taskDesc,
-      imgName: "empty"
-	}).then(task => {		
-		res.send(task);
+      imgName: req.file.originalname,
+      imgData: imageData
+	}).then(task => {
+        try{
+            fs.writeFileSync(__dirname + '/../Public/images/' + req.file.originalname, task.imgData);
+            res.send(task);
+          }catch(e){
+            console.log(e);
+          }
 	}).catch(err => {
         res.status(500).send({
             success: false,

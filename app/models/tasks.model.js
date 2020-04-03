@@ -9,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
 	  },
 	  imgName: {
 		  type: Sequelize.STRING
+	  },
+	  imgData:{
+		  type: Sequelize.BLOB('long')
 	  }
 	});
 	
