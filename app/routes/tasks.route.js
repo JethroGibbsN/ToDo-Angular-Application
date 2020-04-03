@@ -12,8 +12,8 @@ module.exports = function(app) {
     app.get('/tasks/:taskName', tasks.findByName);
  
     // Update a task with name
-    app.put('/tasks/:taskname', tasks.update);
+    app.put('/tasks/:taskName', tasks.update);
  
     // Delete a task with name
-    app.delete('/tasks/:taskname', tasks.delete);
+    app.delete('/tasks/:taskName', tasks.delete);
 }

@@ -3,7 +3,7 @@ var app = express();
 var nodemon = require('nodemon')
 var bodyParser = require('body-parser');
 app.use(bodyParser.json())
-
+app.use(bodyParser.urlencoded({ extended: true }));
 const db = require('./app/db/db.js');
 
 db.sequelize.sync({ force: false , alter : true }).then(() => {

@@ -3,6 +3,18 @@ const Task = db.tasks;
 
 // Post a Task
 exports.create = (req, res) => {	
+    if (!req.body.taskName){
+        return res.status(400).send({
+            success: false,
+            message: "Task Name can not be empty"
+        });
+    }
+    if (!req.body.taskDesc){
+        return res.status(400).send({
+            success: false,
+            message: "Task Description can not be empty"
+        });
+    }
 	// Save to MySQL database
 	Task.create({  
 	  taskName: req.body.taskName,
@@ -24,25 +36,42 @@ exports.findAll = (req, res) => {
 exports.findByName = (req, res) => {	
 	Task.findByPk(req.params.taskName).then(task => {
 		res.send(task);
-	})
+    })
+    .catch(err => {
+        res.status(500).send({
+            success: false,
+            message: err.message || "Some error occurred while finding Task."
+        });
+    });
 };
  
 // Update a task
 exports.update = (req, res) => {
 	const name = req.params.taskName;
-	Task.update( { taskDesc: req.body.taskDesc}, 
+	Task.update( { taskDesc: req.body.taskDesc, taskName: req.params.taskName}, 
 					 { where: {taskName: req.params.taskName} }
 				   ).then(() => {
-					 res.status(200).send("updated successfully a task with name = " + name);
-				   });
+					 res.status(200).send({success: true, message : "updated successfully a task with name = " + name});
+                   })
+                   .catch(err => {
+                    res.status(500).send({
+                        success: false,
+                        message: err.message || "Some error occurred while updating."
+                    });
+                });
 };
  
 // Delete a Task by Name
 exports.delete = (req, res) => {
 	const name = req.params.taskName;
 	Task.destroy({
-	  where: { name: name }
+	  where: { taskName: req.params.taskName }
 	}).then(() => {
-	  res.status(200).send('deleted successfully a task with name = ' + name);
-	});
+	  res.status(200).send({success: true, message : 'deleted successfully a task with name = ' + name});
+	}).catch(err => {
+        res.status(500).send({
+            success: false,
+            message: err.message || "Some error occurred while deleting Task."
+        });
+    });
 };
