@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core'
-
+import { Component, OnInit, Inject } from '@angular/core'
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Task } from './task'
 import { TasksService } from './tasks.service'
+
+
 
 @Component({
   selector: 'app-tasks',
@@ -12,7 +14,7 @@ export class TasksComponent implements OnInit {
   tasks: Task[]
   editTask: Task
 
-  constructor(private taskService: TasksService) {}
+  constructor(private taskService: TasksService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.getTasks()
@@ -56,4 +58,37 @@ export class TasksComponent implements OnInit {
       this.editTask = undefined
     }
   }
+  openUpdateDialog(task){
+    const dialogRef = this.dialog.open(UpdateTaskDialog, {
+      width: 'auto',
+      data: task
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      task.animal = result;
+      this.getTasks();
+    });
+  }
+}
+@Component({
+  selector: 'update-task',
+  templateUrl: './updatetask.html',
+  providers: [TasksService]
+})
+export class UpdateTaskDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<UpdateTaskDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: Task, private taskService: TasksService) {}
+    saveData(task) {
+      // delete task.imgData;
+        this.taskService.updateTask(task).subscribe(task => {
+          this.closeDialog()
+        })
+      
+    }
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+
 }

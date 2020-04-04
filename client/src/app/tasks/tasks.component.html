@@ -1,28 +1,31 @@
-<form class="form" (submit) = "add(taskName.value, taskDesc.value); taskName.value = ''; taskDesc.value = ''">
-    <div class="form-group">
-        <input #taskName class = "form-control" placeholder = "Task Name">
-        <input #taskDesc class = "form-control" placeholder = "Task Description">
-
-    </div>
-    <input type="submit" value="submit" class="btn btn-success btn-lg btn-block">
-</form>
-
-<br>
-<hr>
-<br>
-<table class="table">
-    <tr *ngFor = "let task of tasks">
-        <td class = "text-left" >
-            <span>{{task.taskName}}</span>
-        </td>
-        <td class="text-center">
-            <a (click)="edit(task)">
-                <span *ngIf="task!==editTask">{{task.taskDesc}}</span>
-                <input *ngIf="task===editTask" [(ngModel)]="task.taskDesc" (blur)="update()" (keyup.enter)="update()">
-            </a>
-        </td>
-        <td class="text-right">
+<div align = "center" class="container">
+    <mat-toolbar align = "center">
+        <span class="fill-remaining-space"></span>
+      <span>ToDo Application</span>
+      <span class="fill-remaining-space"></span>
+    </mat-toolbar>
+    <table class="table">
+      <tr>
+        <th class = "text-left"> Task Name</th>
+        <th class = "text-center"> Task Description</th>
+        <th class = "text-right"> Actions</th>
+      </tr>
+    
+      <tr *ngFor = "let task of tasks">
+          <td class = "text-left" >
+              <span>{{task.taskName}}</span>
+          </td>
+          <td class="text-center">
+              <a (click)="edit(task)">
+                  <span *ngIf="task!==editTask">{{task.taskDesc}}</span>
+                  <input *ngIf="task===editTask" [(ngModel)]="task.taskDesc" (blur)="update()" (keyup.enter)="update()">
+              </a>
+          </td>
+          
+          <td class="text-right">
+            <button class="btn btn-secondary" title="delete task" (click)="openUpdateDialog(task)">Update</button>&nbsp;
             <button class="btn btn-danger" title="delete task" (click)="delete(task)">Delete</button>
-        </td>
-    </tr>
-</table>
+          </td>
+      </tr>
+  </table>
+</div>

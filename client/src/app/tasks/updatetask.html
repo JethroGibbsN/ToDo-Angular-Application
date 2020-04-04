@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{data.taskName}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Task Description</mat-label>
+    <input matInput [(ngModel)]="data.taskDesc">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="saveData(data)" cdkFocusInitial>Save</button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>
