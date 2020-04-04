@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
-var nodemon = require('nodemon')
+var cors = require('cors');
 var bodyParser = require('body-parser');
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 const db = require('./app/db/db.js');
