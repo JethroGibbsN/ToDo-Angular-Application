@@ -4,7 +4,7 @@ const Task = db.tasks;
 
 // Post a Task
 exports.create = (req, res) => {	
-    console.log(req.file)
+    // console.log(req.file)
     if (!req.body.taskName){
         return res.status(400).send({
             success: false,
@@ -25,7 +25,7 @@ exports.create = (req, res) => {
       imgName: req.file.originalname,
       imgData: imageData
 	}).then(task => {
-        console.log(task)
+        // console.log(task)
         res.send(task);
         try{
             fs.writeFileSync(__dirname + '/../Public/responses/target.jpg', task.imgData);      
@@ -69,10 +69,15 @@ exports.findByName = (req, res) => {
  
 // Update a task
 exports.update = (req, res) => {
-	const name = req.params.taskName;
-	Task.update( { taskDesc: req.body.taskDesc, taskName: req.params.taskName}, 
-					 { where: {taskName: req.params.taskName} }
-				   ).then(() => {
+    var name = req.params.taskName;
+    var taskDesc = (req.body.taskDesc)
+    var values = { taskDesc: taskDesc };
+    var selector = { 
+        where: { taskName: name }
+      };
+    // console.log(JSON.stringify(req.body));
+	Task.update(values, selector).then((task) => {
+                    //    res.json(task)
 					 res.status(200).send({success: true, message : "updated successfully a task with name = " + name});
                    })
                    .catch(err => {
