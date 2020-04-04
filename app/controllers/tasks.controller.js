@@ -17,7 +17,8 @@ exports.create = (req, res) => {
             message: "Task Description can not be empty"
         });
     }
-    var imageData = fs.readFileSync(__dirname + '/../Public/images/' + req.file.originalname);
+    if(req.file){
+        var imageData = fs.readFileSync(__dirname + '/../Public/images/' + req.file.originalname);
 	// Save to MySQL database
 	Task.create({  
 	  taskName: req.body.taskName,
@@ -38,6 +39,22 @@ exports.create = (req, res) => {
             message: err.message || "Some error occurred while creating Task."
         });
     });
+    }else{
+        Task.create({  
+            taskName: req.body.taskName,
+            taskDesc: req.body.taskDesc,
+            imgName: "None",
+          }).then(task => {
+              // console.log(task)
+              res.send(task);
+          }).catch(err => {
+              res.status(500).send({
+                  success: false,
+                  message: err.message || "Some error occurred while creating Task."
+              });
+          });
+    }
+    
 };
  
 // FETCH all tasks
