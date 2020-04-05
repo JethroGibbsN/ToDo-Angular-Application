@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>{{data.taskName}}</h1>
+<h1 mat-dialog-title><b>{{data.taskName}}</b></h1>
 <div mat-dialog-content>
   <mat-form-field>
     <mat-label>Task Description</mat-label>
-    <input matInput [(ngModel)]="data.taskDesc">
+    <textarea matInput [(ngModel)]="data.taskDesc"></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

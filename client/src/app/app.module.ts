@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import {TasksComponent, UpdateTaskDialog} from './tasks/tasks.component';
+import {TasksComponent, UpdateTaskDialog, CreateTaskDialog, OpenTaskDialog} from './tasks/tasks.component';
 import {HttpErrorHandler} from './http-error-handler.service';
 import {MessageService} from './message.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -17,10 +17,9 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatButtonModule} from '@angular/material/button';
-
 @NgModule({
   declarations: [
-    AppComponent, TasksComponent, UpdateTaskDialog
+    AppComponent, TasksComponent, UpdateTaskDialog, CreateTaskDialog, OpenTaskDialog
   ],
   imports: [
     BrowserModule, 
@@ -36,9 +35,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     ReactiveFormsModule,
     MatButtonToggleModule,
-    MatButtonModule
+    MatButtonModule,
     ],
-    entryComponents: [UpdateTaskDialog, TasksComponent],
+    entryComponents: [UpdateTaskDialog, TasksComponent, CreateTaskDialog, OpenTaskDialog],
   providers: [MessageService, 
     HttpErrorHandler, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
   bootstrap: [AppComponent]

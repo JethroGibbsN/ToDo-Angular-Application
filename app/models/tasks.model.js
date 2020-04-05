@@ -12,9 +12,6 @@ module.exports = (sequelize, Sequelize) => {
 	  imgName: {
 		  type: Sequelize.STRING
 	  },
-	  imgData:{
-		  type: Sequelize.BLOB('long')
-	  },
 	  created_at: {
 		type: Sequelize.DATE,
 		defaultValue: Sequelize.NOW,

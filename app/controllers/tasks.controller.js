@@ -18,21 +18,22 @@ exports.create = (req, res) => {
         });
     }
     if(req.file){
-        var imageData = fs.readFileSync(__dirname + '/../Public/images/' + req.file.originalname);
+        console.log(req.file)
+        fname = req.file.fieldname + '-' + Date.now() + '-' + path.extname(req.file.originalname)
+        var imageData = fs.readFileSync(__dirname + '/../Public/images/' + fname);
 	// Save to MySQL database
 	Task.create({  
 	  taskName: req.body.taskName,
 	  taskDesc: req.body.taskDesc,
-      imgName: req.file.originalname,
-      imgData: imageData
+      imgName: 'http://localhost:5000/app/Public/images/' + fname,
 	}).then(task => {
         // console.log(task)
         res.send(task);
-        try{
-            fs.writeFileSync(__dirname + '/../Public/responses/target.jpg', task.imgData);      
-          }catch(e){
-            console.log(e);
-          }
+        // try{
+        //     fs.writeFileSync(__dirname + '/../Public/responses/target.jpg', task.imgData);      
+        //   }catch(e){
+        //     console.log(e);
+        //   }
 	}).catch(err => {
         res.status(500).send({
             success: false,

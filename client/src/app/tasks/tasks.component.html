@@ -1,31 +1,37 @@
-<div align = "center" class="container">
-    <mat-toolbar align = "center">
-        <span class="fill-remaining-space"></span>
+<div  class="container">
+    <mat-toolbar >
+      <span class="fill-remaining-space"></span>
       <span>ToDo Application</span>
       <span class="fill-remaining-space"></span>
+
+      <button class="btn btn-dark" style="float: right;"title="Create task" (click)="openCreateDialog()">Create Task</button>
+      
     </mat-toolbar>
     <table class="table">
       <tr>
-        <th class = "text-left"> Task Name</th>
-        <th class = "text-center"> Task Description</th>
+          <th class = "text-left"> Task Name</th>
+          <th class = "text-center"> Task Description</th>
         <th class = "text-right"> Actions</th>
       </tr>
     
       <tr *ngFor = "let task of tasks">
-          <td class = "text-left" >
+
+          <td class="text-left" >
               <span>{{task.taskName}}</span>
           </td>
-          <td class="text-center">
-              <a (click)="edit(task)">
-                  <span *ngIf="task!==editTask">{{task.taskDesc}}</span>
-                  <input *ngIf="task===editTask" [(ngModel)]="task.taskDesc" (blur)="update()" (keyup.enter)="update()">
-              </a>
+          <td class="text-center" >
+                  <span >{{task.taskDesc}}</span>
           </td>
           
           <td class="text-right">
+            <button class="btn btn-primary" title="delete task" (click)="openViewDialog(task)">View</button>&nbsp;
+           <!-- </td>
+            <td class="text-right"> -->
             <button class="btn btn-secondary" title="delete task" (click)="openUpdateDialog(task)">Update</button>&nbsp;
-            <button class="btn btn-danger" title="delete task" (click)="delete(task)">Delete</button>
-          </td>
-      </tr>
+              
+             <!-- <td class="text-right"> -->
+            <button class="btn btn-danger" title="delete task" (click)="delete(task)">Delete</button></td>   
+          
+        </tr>
   </table>
 </div>

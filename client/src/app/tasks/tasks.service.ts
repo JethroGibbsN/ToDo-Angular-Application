@@ -20,11 +20,14 @@ export class TasksService {
       .get<Task[]>("/tasks")
       .pipe(catchError(this.handleError("getTasks", [])));
   }
-
-  addTask(task: Task): Observable<Task> {
+  getTask(task: Task): Observable<Task>{
+    return this.http
+    .get<Task>(`/tasks/${task.taskName}`)
+    
+  }
+  addTask(task: FormData): Observable<Task> {
     return this.http
       .post<Task>("/tasks", task)
-      .pipe(catchError(this.handleError("addTask", task)));
   }
 
   deleteTask(taskName: string): Observable<{}> {
