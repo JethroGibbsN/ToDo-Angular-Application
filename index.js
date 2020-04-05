@@ -7,7 +7,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 const PATH = require('path')
-app.use(express.static(PATH.join(__dirname, '/app/Public/images/')));
+app.use('/static', express.static(PATH.join(__dirname )))
 app.use(function(req, res, next) {
   //set headers to allow cross origin request.
       res.header("Access-Control-Allow-Origin", "*");
@@ -24,6 +24,7 @@ db.sequelize.sync({ force: false , alter : true }).then(() => {
 //     res.json({status: "working", message: "Welcome"})
 // })
 require('./app/routes/tasks.route.js')(app);
+console.log(__dirname)
 
 
 app.listen(5000,()=>console.log('Server @ port 5000'));

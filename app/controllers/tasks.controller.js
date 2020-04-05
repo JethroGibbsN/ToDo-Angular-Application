@@ -1,3 +1,5 @@
+const path = require('path')
+
 const fs = require('fs');
 const db = require('../db/db.js');
 const Task = db.tasks;
@@ -25,7 +27,7 @@ exports.create = (req, res) => {
 	Task.create({  
 	  taskName: req.body.taskName,
 	  taskDesc: req.body.taskDesc,
-      imgName: 'http://localhost:5000/app/Public/images/' + fname,
+      imgName: 'http://localhost:5000/static/app/Public/images/' + fname,
 	}).then(task => {
         // console.log(task)
         res.send(task);
