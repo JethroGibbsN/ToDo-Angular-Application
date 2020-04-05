@@ -6,31 +6,25 @@ const Task = db.tasks;
 
 // Post a Task
 exports.create = (req, res) => {	
-    // console.log(req.file)
     if (!req.body.taskName || !req.body.taskDesc){
         return res.status(400).send({success: false, message: "Task Name and Task Description can not be empty"});
     }
- 
-    if(req.file){
-	// Save to MySQL database
-	Task.create({  
-	  taskName: req.body.taskName, taskDesc: req.body.taskDesc, imgName: 'http://localhost:5000/static/app/Public/images/' + req.file.originalname,
-	}).then(task => {
-        res.send(task);
-	}).catch(err => {
-        res.status(500).send({success: false, message: err.message || "Some error occurred while creating Task."});
-    });
-    }else{
-        Task.create({  
-            taskName: req.body.taskName, taskDesc: req.body.taskDesc, imgName: "None",
-          }).then(task => {
-              res.send(task);
-          }).catch(err => {
-              res.status(500).send({ success: false, message: err.message || "Some error occurred while creating Task."});
-          });
-    }
+    var task = {
+        taskName: req.body.taskName, taskDesc: req.body.taskDesc,
+      };
+      var file = req.file;
+      file
+        ? (task.imgName = `http://localhost:5000/static/app/Public/images/${req.file.originalname}`)
+        : (task.imgName = null);
     
-};
+      Task.create(task)
+        .then((task) => {
+          res.send(task);
+        })
+        .catch((err) => {
+          res.status(500).send({success: false, message: err.message || "Some error occurred while creating Task."});
+        });
+    };
  
 // FETCH all tasks
 exports.findAll = (req, res) => {
