@@ -7,52 +7,26 @@ const Task = db.tasks;
 // Post a Task
 exports.create = (req, res) => {	
     // console.log(req.file)
-    if (!req.body.taskName){
-        return res.status(400).send({
-            success: false,
-            message: "Task Name can not be empty"
-        });
+    if (!req.body.taskName || !req.body.taskDesc){
+        return res.status(400).send({success: false, message: "Task Name and Task Description can not be empty"});
     }
-    if (!req.body.taskDesc){
-        return res.status(400).send({
-            success: false,
-            message: "Task Description can not be empty"
-        });
-    }
+ 
     if(req.file){
-        var imageData = fs.readFileSync(__dirname + '/../Public/images/' + req.file.originalname);
 	// Save to MySQL database
 	Task.create({  
-	  taskName: req.body.taskName,
-	  taskDesc: req.body.taskDesc,
-      imgName: 'http://localhost:5000/static/app/Public/images/' + req.file.originalname,
+	  taskName: req.body.taskName, taskDesc: req.body.taskDesc, imgName: 'http://localhost:5000/static/app/Public/images/' + req.file.originalname,
 	}).then(task => {
-        // console.log(task)
         res.send(task);
-        // try{
-        //     fs.writeFileSync(__dirname + '/../Public/responses/target.jpg', task.imgData);      
-        //   }catch(e){
-        //     console.log(e);
-        //   }
 	}).catch(err => {
-        res.status(500).send({
-            success: false,
-            message: err.message || "Some error occurred while creating Task."
-        });
+        res.status(500).send({success: false, message: err.message || "Some error occurred while creating Task."});
     });
     }else{
         Task.create({  
-            taskName: req.body.taskName,
-            taskDesc: req.body.taskDesc,
-            imgName: "None",
+            taskName: req.body.taskName, taskDesc: req.body.taskDesc, imgName: "None",
           }).then(task => {
-              // console.log(task)
               res.send(task);
           }).catch(err => {
-              res.status(500).send({
-                  success: false,
-                  message: err.message || "Some error occurred while creating Task."
-              });
+              res.status(500).send({ success: false, message: err.message || "Some error occurred while creating Task."});
           });
     }
     
