@@ -24,7 +24,6 @@ db.sequelize.sync({ force: false , alter : true }).then(() => {
 //     res.json({status: "working", message: "Welcome"})
 // })
 require('./app/routes/tasks.route.js')(app);
-console.log(__dirname)
 
 
 app.listen(5000,()=>console.log('Server @ port 5000'));

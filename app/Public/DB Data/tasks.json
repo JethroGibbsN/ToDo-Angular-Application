@@ -1,0 +1,11 @@
+[
+{"type":"header","version":"5.0.2","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"assign"},
+{"type":"table","name":"tasks","database":"assign","data":
+[
+{"taskName":"Task1","taskDesc":"Coding NodeJS","imgName":"http:\/\/localhost:5000\/static\/app\/Public\/images\/17951A0573.jpg","created_at":"2020-04-05 10:07:23","updated_at":"2020-04-05 10:07:23"},
+{"taskName":"Task2","taskDesc":"Gym","imgName":"http:\/\/localhost:5000\/static\/app\/Public\/images\/4k-wallpaper-automotive-blur-1413412.jpg","created_at":"2020-04-05 10:08:11","updated_at":"2020-04-05 10:08:11"},
+{"taskName":"Task3","taskDesc":"Eating","imgName":"http:\/\/localhost:5000\/static\/app\/Public\/images\/dawn-hd-wallpaper-landscape-36717.jpg","created_at":"2020-04-05 10:08:50","updated_at":"2020-04-05 10:08:50"}
+]
+}
+]

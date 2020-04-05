@@ -1,7 +1,10 @@
 <h1 mat-dialog-title><b>{{data.taskName}}</b></h1>
 <div mat-dialog-content>
-      <p #taskDesc >{{data.taskDesc}}</p>
-      <img src = "{{data.imgName}}" height="42" width="42">
+  <div class="mat-label"><b>Image</b></div>
+  <img src = "{{data.imgName}}" height="281" width="253">
+<br><hr>
+<div class="mat-label"><b>Task Description</b></div>
+      <h3 #taskDesc >{{data.taskDesc}}</h3>
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="closeDialog()">Cancel</button>
